@@ -21,6 +21,7 @@ coverage/
 
 # Ignore not supported files
 *.d.ts
+!module.d.ts
 
 # Ignore precompiled schemas
 schemas/**/*.check.js
@@ -28,3 +29,5 @@ schemas/**/*.check.js
 # Ignore example fixtures
 examples/
 !examples/**/webpack.config.js
+
+.vscode/**/*.*

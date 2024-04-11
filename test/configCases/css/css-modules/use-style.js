@@ -1,5 +1,12 @@
 import * as style from "./style.module.css";
 import { local1, local2, local3, local4, ident } from "./style.module.css";
+import { myCssClass } from "./style.module.my-css";
+import * as notACssModule from "./style.module.css.invalid";
+import { UsedClassName } from "./identifiers.module.css";
+
+// To prevent analysis export
+const isNotACSSModule = typeof notACssModule["c" + "lass"] === "undefined";
+const hasOwnProperty = (obj, p) => Object.hasOwnProperty.call(obj, p)
 
 export default {
 	global: style.global,
@@ -34,4 +41,15 @@ export default {
 	inSupportScope: style.inSupportScope,
 	animationName: style.animationName,
 	mozAnimationName: style.mozAnimationName,
+	myColor: style['my-color'],
+	paddingSm: style['padding-sm'],
+	paddingLg: style['padding-lg'],
+	inLocalGlobalScope: style['in-local-global-scope'],
+	classLocalScope: style['class-local-scope'],
+	classInContainer: style['class-in-container'],
+	deepClassInContainer: style['deep-class-in-container'],
+	cssModuleWithCustomFileExtension: myCssClass,
+	notAValidCssModuleExtension: isNotACSSModule,
+	UsedClassName,
+	exportLocalVarsShouldCleanup: `${hasOwnProperty(notACssModule, 'local-color')} ${hasOwnProperty(notACssModule, "LOCAL-COLOR")}`
 };

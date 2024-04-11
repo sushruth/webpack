@@ -1,14 +1,18 @@
 module.exports = {
 	root: true,
-	plugins: ["prettier", "node", "jest", "jsdoc"],
+	reportUnusedDisableDirectives: true,
+	plugins: ["prettier", "n", "jest", "jsdoc"],
 	extends: [
 		"eslint:recommended",
-		"plugin:node/recommended",
+		"plugin:n/recommended",
 		"plugin:prettier/recommended"
 	],
 	env: {
 		node: true,
 		es6: true
+	},
+	globals: {
+		WebAssembly: true
 	},
 	parserOptions: {
 		ecmaVersion: 2018
@@ -26,7 +30,7 @@ module.exports = {
 		"no-use-before-define": "off",
 		"no-unused-vars": ["error", { args: "none", ignoreRestSiblings: true }],
 		"no-loop-func": "off",
-		"node/no-missing-require": ["error", { allowModules: ["webpack"] }],
+		"n/no-missing-require": ["error", { allowModules: ["webpack"] }],
 		"jsdoc/check-indentation": "error",
 		"jsdoc/check-param-names": "error",
 		"jsdoc/check-property-names": "error",
@@ -78,6 +82,13 @@ module.exports = {
 	},
 	overrides: [
 		{
+			// Allow to use `dynamic` import
+			files: ["bin/**/*.js"],
+			parserOptions: {
+				ecmaVersion: 2020
+			}
+		},
+		{
 			files: ["lib/**/*.runtime.js", "hot/*.js"],
 			env: {
 				es6: false,
@@ -102,9 +113,20 @@ module.exports = {
 			env: {
 				"jest/globals": true
 			},
+			parserOptions: {
+				ecmaVersion: 2020
+			},
 			globals: {
 				nsObj: false,
 				jasmine: false
+			}
+		},
+		{
+			files: ["examples/**/*.js"],
+			rules: {
+				"n/no-missing-require": "off",
+				"n/no-unpublished-require": "off",
+				"n/no-extraneous-require": "off"
 			}
 		}
 	]
